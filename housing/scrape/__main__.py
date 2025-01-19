@@ -1,3 +1,4 @@
+from .data import DataBase
 from .model import House 
 from .scraper import scrape_page
 
@@ -31,5 +32,7 @@ url = (
 # given the typo in burgemeester-tellegen, I assume they are 
 # also getting buurt information from the CBS.
 
-scrape_page(url)
+houses = scrape_page(url)
+with DataBase() as db: 
+	db.add(*houses)
 

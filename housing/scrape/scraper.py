@@ -4,7 +4,7 @@ from .model import House
 from selenium import webdriver
 from selenium.webdriver.common.by import By 
 
-def scrape_page(url: str): 
+def scrape_page(url: str) -> list[House]: 
 
 	driver = webdriver.Safari()
 	driver.implicitly_wait(2)
@@ -17,6 +17,5 @@ def scrape_page(url: str):
 	print(f'found {len(house_list)} houses on page')
 
 	houses = [House(web_element) for web_element in house_list]
-	for house in houses: print(house)
 	return houses
 

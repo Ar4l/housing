@@ -6,20 +6,22 @@ import re, dataclasses as dc, datetime as dt
 from bs4 import BeautifulSoup
 from selenium.webdriver.remote.webelement import WebElement
 
+@dc.dataclass 
+class Address: 
+	street:   str
+	number:   str
+	postcode: str
+	city:     str
+	# todo: buurt
+
+	def __str__(self): 
+		return f'{self.street} {self.number}'
+
+	def __hash__(self): 
+		return hash((self.street, self.number))
+
 @dc.dataclass
 class House: 
-	''' what we aim to extract '''
-
-	@dc.dataclass 
-	class Address: 
-		street: str 
-		number: str 
-		postcode: str 
-		city: str 
-
-		def __str__(self): 
-			return f'{self.street} {self.number}'
-
 	url:     str
 	img_url: str
 	address: Address
@@ -29,7 +31,7 @@ class House:
 	beds:    int
 	energy:  str
 
-	listed_since: dt.datetime
+	# todo: listed_since: dt.datetime  
 	seen:         dt.datetime = dt.datetime.now()
 
 	def __init__(self, web_element: WebElement):
@@ -58,7 +60,7 @@ class House:
 		street = re.search('([a-zA-Z]+\s)*[a-zA-Z]+', _address_line)[0]
 		number = re.search('\d+.*', _address_line)[0]
 		postcode, city = house.find('div', class_='truncate').get_text().split()
-		self.address = House.Address(street, number, postcode, city)
+		self.address = Address(street, number, postcode, city)
 
 		self.price = int(re.search(
 			'[\d\.]*\d', 
@@ -100,4 +102,6 @@ class House:
 
 		return f'{price} {sqm} {energy} \t{self.address}'
 
+	def __hash__(self): 
+		return hash(vars(self).values())
 
