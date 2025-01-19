@@ -13,3 +13,19 @@ dependencies = [
     "polars>=1.18.0",
     "selenium>=4.27.1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Ar4l/housing"
+
+[project.scripts]
+fetch = "housing.__main__:main"
+
+# [tool.uv.sources]
+# housing = { workspace = true }
+
+[tool.setuptools]
+packages = ['housing']
+
+[tool.uv]
+package = true
+

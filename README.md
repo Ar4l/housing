@@ -22,6 +22,6 @@ Lastly, web-scraping with Safari requires enabling remote automation. Go to `Set
 
 ```bash
 # Scrape the url defined in housing/scrape/__main__.py
-uv run python -m housing.scrape 
+uv run fetch 
 ```
 

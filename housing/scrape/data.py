@@ -4,7 +4,7 @@ import polars as pl
 
 from .model import House, Address
 
-class DataBase:
+class Database:
 
 	data_path	 = './data/'
 	housing_file = data_path + 'houses.parquet'
